@@ -11,6 +11,12 @@ export default class RabbitMQ {
     this.channel = await this.conn.createChannel();
   }
 
+  async createQueue(queue: string) {
+    this.channel?.assertQueue(queue, {
+      durable: false
+    })
+  }
+
   async publishInQueue(queue: string, message: string) {
     return this.channel?.sendToQueue(queue, Buffer.from(message));
   }

@@ -3,7 +3,6 @@ version: '3.1'
 services:
   mongodb:
     image: mongo:4.4-bionic
-    restart: always
     ports:
       - 27017:27017
     volumes:
@@ -11,7 +10,6 @@ services:
 
   rabbitmq:
     image: rabbitmq:3.8-management-alpine
-    restart: always
     environment:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: admin
@@ -20,8 +18,7 @@ services:
       - 5672:5672
 
   express_api:
-    build: ./
-    restart: always
+    build: ./express
     environment:
       - RABBITMQ_URL=amqp://admin:admin@rabbitmq:5672
       - DATABASE_URL=mongodb://mongodb:27017/my_db

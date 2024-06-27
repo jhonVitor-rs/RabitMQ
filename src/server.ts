@@ -26,7 +26,7 @@ class App {
 
   async listenServer() {
     await connectDatabase()
-    await this.rabbitmq.start()
+    await this.rabbitmq.start().then(async () => await this.rabbitmq.createQueue('orders'))
     await this.rabbitmq.consumer('orders', (message) => handleOrderMessage(message?.content.toString()))
     // await this.rabbitmq.consumer('orders', (message) => console.log(message?.content.toString()))
 
