@@ -1,0 +1,19 @@
+name: Node.js CI with RabbitMQ
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build and Run Docker
+        run: |
+          docker-compose up -d
+          docker-compose ps

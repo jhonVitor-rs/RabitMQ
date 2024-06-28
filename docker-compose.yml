@@ -18,7 +18,7 @@ services:
       - 5672:5672
 
   express_api:
-    build: ./express
+    build: ./
     environment:
       - RABBITMQ_URL=amqp://admin:admin@rabbitmq:5672
       - DATABASE_URL=mongodb://mongodb:27017/my_db

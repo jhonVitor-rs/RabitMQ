@@ -14,7 +14,6 @@ USER node
 COPY package*.json ./
 
 # Instale as dependências do projeto
-RUN npm cache clean --force
 RUN npm install
 
 # Copie o restante dos arquivos do projeto

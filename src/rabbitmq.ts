@@ -7,8 +7,15 @@ export default class RabbitMQ {
   constructor(private uri: string) {}
 
   async start(): Promise<void> {
-    this.conn = await connect(this.uri);
-    this.channel = await this.conn.createChannel();
+    while (!this.conn) {
+      try {
+        this.conn = await connect(this.uri);
+        this.channel = await this.conn.createChannel();
+      } catch (error) {
+        console.error('Failed to connect to RabbitMQ, retrying in 5 seconds', error);
+        await new Promise(resolve => setTimeout(resolve, 5000));
+      }
+    }
   }
 
   async createQueue(queue: string) {
